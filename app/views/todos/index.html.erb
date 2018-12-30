@@ -14,6 +14,8 @@
         <td><%= todo.priority %></td>
         <td><%= todo.content %></td>
         <td><%= todo.tags %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+        <td><%= link_to 'Delete', todo_path(todo), method: :delete %></td>
       </tr>
     <% end %>
   </tbody>

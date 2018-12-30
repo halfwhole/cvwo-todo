@@ -1,0 +1,7 @@
+<%= form_with model: @todo, local:true do |form| %>
+  <p>
+    <%= form.label :content %><br/>
+    <%= form.text_field :content %>
+  </p>
+  <%= form.submit %>
+<% end %>
