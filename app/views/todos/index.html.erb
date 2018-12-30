@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <td><b>Complete</b></td>
+      <td><b>Priority</b></td>
+      <td><b>Content</b></td>
+      <td><b>Tags</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @todos.each do |todo| %>
+      <tr>
+        <td><%= todo.complete %></td>
+        <td><%= todo.priority %></td>
+        <td><%= todo.content %></td>
+        <td><%= todo.tags %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<%= link_to 'New', new_todo_path %>

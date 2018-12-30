@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  complete: false
+  priority: false
+  content: MyString
+  tags: MyString
+
+two:
+  complete: false
+  priority: false
+  content: MyString
+  tags: MyString
