@@ -1,26 +1,23 @@
-<table>
-  <thead>
-    <tr>
-      <td><b>Complete</b></td>
-      <td><b>Priority</b></td>
-      <td><b>Content</b></td>
-      <td><b>Tags</b></td>
-    </tr>
-  </thead>
-  <tbody>
+<div class="page-header" align="center">
+  <h1 style="color:#A9A9A9">todos</h1>
+</div>
+
+<div class="container">
+
+  <div class="list-group">
     <% @todos.each do |todo| %>
-      <tr>
-        <td><%= todo.complete %></td>
-        <td><%= todo.priority %></td>
-        <td><%= todo.content %></td>
-        <td><%= todo.tags %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Delete', todo_path(todo), method: :delete %></td>
-      </tr>
+      <div class="list-group-item">
+        <button type="button" class="close pull-left"><span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span></button>
+        <button type="button" class="close pull-left"><span class="glyphicon <% if todo.priority %>glyphicon-star<% else %>glyphicon-star-empty<% end %>"></span></button>
+        <%= todo.content %>
+        <%= button_to todo_path(todo), class: "close", method: :delete, form: {class: "pull-right"} do %><span class="glyphicon glyphicon-trash"></span><% end %>
+        <%= button_to edit_todo_path(todo), class: "close", method: :get, form: {class: "pull-right"} do %><span class="glyphicon glyphicon-edit"></span><% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br/>
+  <%= link_to 'New', new_todo_path %>
 
-<%= link_to 'New', new_todo_path %>
+</div>
+
+
