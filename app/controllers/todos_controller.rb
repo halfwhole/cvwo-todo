@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
 
   def index
+    @todo = Todo.new
     @todos = Todo.order(complete: :asc, priority: :desc, content: :asc)
   end
 
@@ -9,12 +10,9 @@ class TodosController < ApplicationController
     if @todo.save
       redirect_to todos_path
     else
+      ## Needs changing
       render 'new'
     end
-  end
-
-  def new
-    @todo = Todo.new
   end
 
   def edit

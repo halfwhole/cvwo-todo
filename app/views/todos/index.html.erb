@@ -4,6 +4,15 @@
 
 <div class="container">
 
+  <%= form_with model: @todo, local: true do |form| %>
+    <div class="input-group">
+      <%= form.text_field :content, class: "form-control", placeholder: "Add a new item" %>
+      <span class="input-group-btn"><%= form.submit :Submit, class: "btn btn-primary" %></span>
+    </div>
+  <% end %>
+
+  <br/>
+
   <div class="list-group">
     <% @todos.each do |todo| %>
       <div class="list-group-item">
@@ -23,8 +32,6 @@
       </div>
     <% end %>
   </div>
-
-  <%= link_to 'New', new_todo_path %>
 
 </div>
 
