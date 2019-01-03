@@ -11,7 +11,7 @@ class TodosController < ApplicationController
       redirect_to todos_path
     else
       ## Needs changing
-      render 'new'
+      redirect_to todos_path
     end
   end
 
