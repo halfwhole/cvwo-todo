@@ -4,6 +4,7 @@
 
 <div class="container">
 
+  <%# FORM FOR NEW TODO %>
   <%= form_with model: @todo, local: true do |form| %>
     <div class="input-group">
       <%= form.text_field :content, class: "form-control", placeholder: "Add a new item" %>
@@ -13,6 +14,7 @@
 
   <br/>
 
+  <%# LIST GROUP %>
   <div class="list-group">
     <% @todos.each do |todo| %>
       <div class="list-group-item">
@@ -73,7 +75,7 @@
             <h4 class="modal-title">Add or Remove Tag</h4>
           </div>
           <div class="modal-body">
-            <%= form_with model: todo, local: true do |form| %>
+            <%= form_with model: todo, local: true, url: tag_todo_path(todo) do |form| %>
               <div class="input-group">
                 <%= form.text_field :tag, class: "form-control", placeholder: "Tag" %>
                 <span class="input-group-btn"><%= form.submit :Submit, class: "btn btn-primary" %></span>
