@@ -37,7 +37,13 @@
           <span class="glyphicon glyphicon-tags"></span>
         </button>
         <% todo.tags.sort.reverse.each do |tag| %>
-          <span class="badge badge-info badge-pill"><%= tag %> &times;</span>
+          <span class="badge badge-info badge-pill">
+            <%= tag %>
+            <%= form_with model: todo, local: true, url: tag_todo_path(todo), class: "form-inline" do |form| %>
+              <%= form.hidden_field :tag, value: tag %>
+              <%= form.submit '&times;'.html_safe, class: "cross" %>
+            <% end %>
+          </span>
         <% end %>
       </div>
     <% end %>

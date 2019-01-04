@@ -4,6 +4,7 @@
 
 $spacer: 1rem;
 
+/* SPACINGS */
 .ml-2 {
   margin-left: ($spacer * 0.5) !important;
 }
@@ -16,6 +17,7 @@ $spacer: 1rem;
   margin-right: ($spacer * 0.5) !important;
 }
 
+/* COLORS */
 .orange {
   color: #E65100;
 }
@@ -24,6 +26,8 @@ $spacer: 1rem;
   color: #A9A9A9;
 }
 
+
+/* OTHER */
 .strike {
   text-decoration: line-through;
 }
@@ -42,4 +46,21 @@ $spacer: 1rem;
 .close {
   filter: alpha(opacity=30);
   opacity: 0.3;
+}
+
+.cross {
+  color: #eee;
+  padding: 0;
+  border: none;
+  background: none;
+  display: inline;
+}
+
+.cross:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.form-inline {
+  display: inline;
 }
