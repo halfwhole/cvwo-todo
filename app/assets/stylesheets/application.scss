@@ -1,3 +1,45 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "material_icons";
+
+$spacer: 1rem;
+
+.ml-2 {
+  margin-left: ($spacer * 0.5) !important;
+}
+
+.ml-4 {
+  margin-left: ($spacer) !important;
+}
+
+.mr-2 {
+  margin-right: ($spacer * 0.5) !important;
+}
+
+.orange {
+  color: #E65100;
+}
+
+.silver {
+  color: #A9A9A9;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.badge-info {
+  color: #fff;
+  background-color: #17a2b8;
+}
+
+.badge-info[href]:hover, .badge-info[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #117a8b;
+}
+
+.close {
+  filter: alpha(opacity=30);
+  opacity: 0.3;
+}

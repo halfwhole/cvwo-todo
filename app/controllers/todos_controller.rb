@@ -17,7 +17,9 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find(params[:id])
-    if @todo.update(todo_params)
+    if !todo_tag[:tag].nil?
+      update_tag(@todo)
+    elsif @todo.update(todo_params)
       redirect_to todos_path
     else
       ## Needs changing
@@ -44,6 +46,24 @@ class TodosController < ApplicationController
   end
 
   private
+  def update_tag(todo)
+    if todo_tag[:tag] == ''
+      redirect_to todos_path
+      return
+    end
+    if todo.tags.include? todo_tag[:tag]
+      todo.tags.delete(todo_tag[:tag])
+    else
+      todo.tags.push(todo_tag[:tag])
+    end
+    todo.save
+    redirect_to todos_path
+  end
+
+  def todo_tag
+    params.require(:todo).permit(:tag)
+  end
+
   def todo_params
     params.require(:todo).permit(:content)
   end

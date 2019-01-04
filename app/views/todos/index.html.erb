@@ -1,5 +1,5 @@
 <div class="page-header" align="center">
-  <h1 style="color:#A9A9A9">todos</h1>
+  <h1 class="silver">todos</h1>
 </div>
 
 <div class="container">
@@ -16,34 +16,67 @@
   <div class="list-group">
     <% @todos.each do |todo| %>
       <div class="list-group-item">
-        <%= button_to complete_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left"} do %>
+        <%= button_to complete_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left mr-2"} do %>
           <span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span>
         <% end %>
-        <%= button_to priority_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left"} do %>
-          <span class="glyphicon <% if todo.priority %>glyphicon-star<% else %>glyphicon-star-empty<% end %>"></span>
+        <%= button_to priority_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left mr-2"} do %>
+          <span class="glyphicon <% if todo.priority %>glyphicon-star orange<% else %>glyphicon-star-empty<% end %>"></span>
         <% end %>
-        <%= todo.content %>
-        <%= button_to todo_path(todo), class: "close", method: :delete, form: {class: "pull-right"} do %>
+        <span class="<% if todo.complete %>silver strike<% end %>">
+          <%= todo.content %>
+        </span>
+        <%= button_to todo_path(todo), class: "close", method: :delete, form: {class: "pull-right ml-2"} do %>
           <span class="glyphicon glyphicon-trash"></span>
         <% end %>
-        <button type="button" class="close pull-right" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>"><span class="glyphicon glyphicon-edit"></span></button>
+        <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#tag_modal_<%= todo.id %>">
+          <span class="glyphicon glyphicon-tags"></span>
+        </button>
+        <% todo.tags.sort.reverse.each do |tag| %>
+          <span class="badge badge-info badge-pill"><%= tag %> &times;</span>
+        <% end %>
       </div>
     <% end %>
   </div>
 
+  <%# EDIT MODALS %>
   <% @todos.each do |todo| %>
     <div id="edit_modal_<%= todo.id %>" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Edit</h4>
+            <h4 class="modal-title">Edit Content</h4>
           </div>
           <div class="modal-body">
             <%= form_with model: todo, local: true do |form| %>
               <div class="input-group">
                 <%= form.text_field :content, class: "form-control", placeholder: "Content" %>
                 <span class="input-group-btn"><%= form.submit :Edit, class: "btn btn-primary" %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# TAG MODALS %>
+  <% @todos.each do |todo| %>
+    <div id="tag_modal_<%= todo.id %>" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add or Remove Tag</h4>
+          </div>
+          <div class="modal-body">
+            <%= form_with model: todo, local: true do |form| %>
+              <div class="input-group">
+                <%= form.text_field :tag, class: "form-control", placeholder: "Tag" %>
+                <span class="input-group-btn"><%= form.submit :Submit, class: "btn btn-primary" %></span>
               </div>
             <% end %>
           </div>
