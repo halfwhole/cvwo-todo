@@ -4,7 +4,7 @@
 
 <div class="container">
 
-  <%# FORM FOR NEW TODO %>
+  <%# ADD TODO %>
   <%= form_with model: @todo, local: true do |form| %>
     <div class="input-group">
       <%= form.text_field :content, class: "form-control", placeholder: "Add a new item" %>
@@ -12,40 +12,65 @@
     </div>
   <% end %>
 
+  <%# ADD SEARCH TAG %>
+  <%= form_with local: true, url: add_search_tag_todos_path do |form| %>
+    <div class="input-group">
+      <%= form.text_field :search_tag, class: "form-control", placeholder: "Search tags" %>
+      <span class="input-group-btn"><%= form.submit :Search, class: "btn btn-primary" %></span>
+    </div>
+  <% end %>
+
+  <%# SHOW SEARCH TAGS %>
+  <% if !@search_tags.blank? %>
+    Searching for: 
+    <% @search_tags.sort.each do |search_tag| %>
+      <span class="badge badge-info badge-pill">
+        <%= search_tag %>
+        <%= form_with local: true, url: remove_search_tag_todos_path, class: "form-inline" do |form| %>
+          <%= form.hidden_field :search_tag, value: search_tag %>
+          <%= form.submit '&times;'.html_safe, class: "light-cross" %>
+        <% end %>
+      </span>
+    <% end %>
+    <br/>
+  <% end %>
+
   <br/>
 
   <%# LIST GROUP %>
   <div class="list-group">
     <% @todos.each do |todo| %>
-      <div class="list-group-item">
-        <%= button_to complete_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left mr-2"} do %>
-          <span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span>
-        <% end %>
-        <%= button_to priority_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left mr-2"} do %>
-          <span class="glyphicon <% if todo.priority %>glyphicon-star orange<% else %>glyphicon-star-empty<% end %>"></span>
-        <% end %>
-        <span class="<% if todo.complete %>silver strike<% end %>">
-          <%= todo.content %>
-        </span>
-        <%= button_to todo_path(todo), class: "close", method: :delete, form: {class: "pull-right ml-2"} do %>
-          <span class="glyphicon glyphicon-trash"></span>
-        <% end %>
-        <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-        <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#tag_modal_<%= todo.id %>">
-          <span class="glyphicon glyphicon-tags"></span>
-        </button>
-        <% todo.tags.sort.reverse.each do |tag| %>
-          <span class="badge badge-info badge-pill">
-            <%= tag %>
-            <%= form_with model: todo, local: true, url: tag_todo_path(todo), class: "form-inline" do |form| %>
-              <%= form.hidden_field :tag, value: tag %>
-              <%= form.submit '&times;'.html_safe, class: "cross" %>
-            <% end %>
+      <% if @search_tags.blank? or (todo.tags & @search_tags).to_set == @search_tags.to_set %>
+        <div class="list-group-item">
+          <%= button_to complete_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left mr-2"} do %>
+            <span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span>
+          <% end %>
+          <%= button_to priority_todo_path(todo), class: "close", method: :patch, form: {class: "pull-left mr-2"} do %>
+            <span class="glyphicon <% if todo.priority %>glyphicon-star orange<% else %>glyphicon-star-empty<% end %>"></span>
+          <% end %>
+          <span class="<% if todo.complete %>silver strike<% end %>">
+            <%= todo.content %>
           </span>
-        <% end %>
-      </div>
+          <%= button_to todo_path(todo), class: "close", method: :delete, form: {class: "pull-right ml-2"} do %>
+            <span class="glyphicon glyphicon-trash"></span>
+          <% end %>
+          <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#tag_modal_<%= todo.id %>">
+            <span class="glyphicon glyphicon-tags"></span>
+          </button>
+          <% todo.tags.sort.reverse.each do |tag| %>
+            <span class="badge badge-info badge-pill">
+              <%= tag %>
+              <%= form_with model: todo, local: true, url: tag_todo_path(todo), class: "form-inline" do |form| %>
+                <%= form.hidden_field :tag, value: tag %>
+                <%= form.submit '&times;'.html_safe, class: "light-cross" %>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 

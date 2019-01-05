@@ -6,5 +6,9 @@ Rails.application.routes.draw do
       patch 'priority'
       patch 'tag'
     end
+    collection do
+      post 'add_search_tag'
+      post 'remove_search_tag'
+    end
   end
 end

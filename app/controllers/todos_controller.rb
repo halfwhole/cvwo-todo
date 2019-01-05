@@ -3,6 +3,7 @@ class TodosController < ApplicationController
   def index
     @todo = Todo.new
     @todos = Todo.order(complete: :asc, priority: :desc, content: :asc)
+    @search_tags = session[:search_tags] || []
   end
 
   def create
@@ -43,9 +44,10 @@ class TodosController < ApplicationController
     redirect_to todos_path
   end
 
+  ## TODO: Split 'tag' method into 'add_tag' and 'remove_tag' methods (also modify the view and routes.rb accordingly)
   def tag
     @todo = Todo.find(params[:id])
-    if todo_tag[:tag].nil? or todo_tag[:tag] == ''
+    if todo_tag[:tag].blank?
       redirect_to todos_path
       return
     end
@@ -55,6 +57,21 @@ class TodosController < ApplicationController
       @todo.tags.push(todo_tag[:tag])
     end
     @todo.save
+    redirect_to todos_path
+  end
+
+  def add_search_tag
+    session[:search_tags] ||= []
+    if !params[:search_tag].blank? and !(session[:search_tags].include? params[:search_tag])
+      session[:search_tags].push(params[:search_tag])
+    end
+    redirect_to todos_path
+  end
+
+  def remove_search_tag
+    if session[:search_tags].include? params[:search_tag]
+      session[:search_tags].delete(params[:search_tag])
+    end
     redirect_to todos_path
   end
 

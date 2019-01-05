@@ -25,7 +25,6 @@ $spacer: 1rem;
   color: #A9A9A9;
 }
 
-
 /* OTHER */
 .strike {
   text-decoration: line-through;
@@ -47,7 +46,7 @@ $spacer: 1rem;
   opacity: 0.3;
 }
 
-.cross {
+.light-cross {
   color: #eee;
   padding: 0;
   border: none;
@@ -55,7 +54,7 @@ $spacer: 1rem;
   display: inline;
 }
 
-.cross:hover {
+.light-cross:hover {
   color: #fff;
   text-decoration: none;
 }
