@@ -8,22 +8,14 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
-    if @todo.save
-      redirect_to todos_path
-    else
-      ## Needs changing
-      redirect_to todos_path
-    end
+    @todo.save
+    redirect_to todos_path
   end
 
   def update
     @todo = Todo.find(params[:id])
-    if @todo.update(todo_params)
-      redirect_to todos_path
-    else
-      ## Needs changing
-      redirect_to todos_path
-    end
+    @todo.update(todo_params)
+    redirect_to todos_path
   end
 
   def destroy
@@ -44,19 +36,21 @@ class TodosController < ApplicationController
     redirect_to todos_path
   end
 
-  ## TODO: Split 'tag' method into 'add_tag' and 'remove_tag' methods (also modify the view and routes.rb accordingly)
-  def tag
+  def add_tag
     @todo = Todo.find(params[:id])
-    if todo_tag[:tag].blank?
-      redirect_to todos_path
-      return
+    if !params[:tag].blank? and !(@todo.tags.include? params[:tag])
+      @todo.tags.push(params[:tag])
+      @todo.save
     end
-    if @todo.tags.include? todo_tag[:tag]
-      @todo.tags.delete(todo_tag[:tag])
-    else
-      @todo.tags.push(todo_tag[:tag])
+    redirect_to todos_path
+  end
+
+  def remove_tag
+    @todo = Todo.find(params[:id])
+    if !params[:tag].blank?
+      @todo.tags.delete(params[:tag])
+      @todo.save
     end
-    @todo.save
     redirect_to todos_path
   end
 
@@ -76,10 +70,6 @@ class TodosController < ApplicationController
   end
 
   private
-  def todo_tag
-    params.require(:todo).permit(:tag)
-  end
-
   def todo_params
     params.require(:todo).permit(:content)
   end

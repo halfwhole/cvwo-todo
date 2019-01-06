@@ -63,8 +63,8 @@
           <% todo.tags.sort.reverse.each do |tag| %>
             <span class="badge badge-info badge-pill">
               <%= tag %>
-              <%= form_with model: todo, local: true, url: tag_todo_path(todo), class: "form-inline" do |form| %>
-                <%= form.hidden_field :tag, value: tag %>
+              <%= form_with model: todo, local: true, url: remove_tag_todo_path(todo), class: "form-inline" do |form| %>
+                <%= hidden_field_tag 'tag', tag %>
                 <%= form.submit '&times;'.html_safe, class: "light-cross" %>
               <% end %>
             </span>
@@ -103,13 +103,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add or Remove Tag</h4>
+            <h4 class="modal-title">Add Tag</h4>
           </div>
           <div class="modal-body">
-            <%= form_with model: todo, local: true, url: tag_todo_path(todo) do |form| %>
+            <%= form_with model: todo, local: true, url: add_tag_todo_path(todo) do |form| %>
               <div class="input-group">
-                <%= form.text_field :tag, class: "form-control", placeholder: "Tag" %>
-                <span class="input-group-btn"><%= form.submit :Submit, class: "btn btn-primary" %></span>
+                <%= text_field_tag 'tag', '', class: "form-control", placeholder: "Tag" %>
+                <span class="input-group-btn"><%= form.submit :Add, class: "btn btn-primary" %></span>
               </div>
             <% end %>
           </div>

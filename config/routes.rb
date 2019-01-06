@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     member do
       patch 'complete'
       patch 'priority'
-      patch 'tag'
+      patch 'add_tag'
+      patch 'remove_tag'
     end
     collection do
       post 'add_search_tag'
