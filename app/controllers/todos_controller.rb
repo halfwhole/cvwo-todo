@@ -4,6 +4,11 @@ class TodosController < ApplicationController
     @todo = Todo.new
     @todos = Todo.order(complete: :asc, priority: :desc, content: :asc)
     @search_tags = session[:search_tags] || []
+    if @search_tags.blank?
+      @filtered_todos = @todos
+    else
+      @filtered_todos = @todos.select { |todo| (todo.tags & @search_tags).to_set == @search_tags.to_set }
+    end
   end
 
   def create

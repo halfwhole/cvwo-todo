@@ -16,6 +16,18 @@ $spacer: 1rem;
   margin-right: ($spacer * 0.5) !important;
 }
 
+.mb-2 {
+  margin-bottom: ($spacer * 0.5) !important;
+}
+
+.mb-3 {
+  margin-bottom: ($spacer * 0.75) !important;
+}
+
+.width-70 {
+  width: 70px;
+}
+
 /* COLORS */
 .orange {
   color: #E65100;
