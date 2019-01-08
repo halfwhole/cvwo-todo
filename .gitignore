@@ -6,7 +6,6 @@
 
 *.un
 *.un~
-config/database.yml
 TODO.txt
 
 # Ignore bundler config.
