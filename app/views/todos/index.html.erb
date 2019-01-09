@@ -91,7 +91,7 @@
           <div class="modal-body">
             <%= form_with model: todo do |form| %>
               <div class="input-group">
-                <%= form.text_field :content, class: "form-control", placeholder: "Content" %>
+                <%= form.text_field :content, class: "form-control autofocus", placeholder: "Content" %>
                 <span class="input-group-btn"><%= form.submit :Edit, class: "btn btn-primary" %></span>
               </div>
             <% end %>
@@ -113,7 +113,7 @@
           <div class="modal-body">
             <%= form_with model: todo, url: add_tag_todo_path(todo) do |form| %>
               <div class="input-group">
-                <%= text_field_tag 'tag', '', class: "form-control", placeholder: "Tag" %>
+                <%= text_field_tag 'tag', '', class: "form-control autofocus", placeholder: "Tag" %>
                 <span class="input-group-btn"><%= form.submit :Add, class: "btn btn-primary" %></span>
               </div>
             <% end %>

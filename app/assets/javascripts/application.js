@@ -16,3 +16,10 @@
 //= require_tree .
 //= require jquery3
 //= require bootstrap-sprockets
+
+$(document).on('shown.bs.modal', '.modal', function() {
+    const input = $(this).find('.autofocus');
+    input.focus();
+    const initialVal = input.val();
+    input.val('').val(initialVal);
+  });
