@@ -18,8 +18,8 @@
 //= require bootstrap-sprockets
 
 $(document).on('shown.bs.modal', '.modal', function() {
-    const input = $(this).find('.autofocus');
-    input.focus();
-    const initialVal = input.val();
-    input.val('').val(initialVal);
-  });
+  var input = $(this).find('.autofocus');
+  input.focus();
+  var initialVal = input.val();
+  input.val('').val(initialVal);
+});
