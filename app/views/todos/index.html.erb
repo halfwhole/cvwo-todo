@@ -47,27 +47,27 @@
       No results found.
     <% end %>
     <% @filtered_todos.each do |todo| %>
-      <div class="list-group-item">
+      <div class="list-group-item to-hover clearfix">
         <%= button_to complete_todo_path(todo), class: "close", method: :patch, remote: true, form: {class: "pull-left mr-2"} do %>
           <span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span>
         <% end %>
         <%= button_to priority_todo_path(todo), class: "close", method: :patch, remote: true, form: {class: "pull-left mr-2"} do %>
           <span class="glyphicon <% if todo.priority %>glyphicon-star orange<% else %>glyphicon-star-empty<% end %>"></span>
         <% end %>
-        <span class="<% if todo.complete %>silver strike<% end %>">
+        <span class="pull-left mt-1 <% if todo.complete %>silver strike<% end %>">
           <%= todo.content %>
         </span>
+        <button type="button" class="close ml-2 no-float to-show pull-left" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
+          <small><span class="glyphicon glyphicon-pencil"></span></small>
+        </button>
         <%= button_to todo_path(todo), class: "close", method: :delete, remote: true, form: {class: "pull-right ml-2"} do %>
           <span class="glyphicon glyphicon-trash"></span>
         <% end %>
-        <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
         <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#tag_modal_<%= todo.id %>">
           <span class="glyphicon glyphicon-tags"></span>
         </button>
         <% todo.tags.sort.reverse.each do |tag| %>
-          <span class="badge badge-info badge-pill">
+          <span class="badge badge-info badge-pill mt-1">
             <%= tag %>
             <%= form_with model: todo, url: remove_tag_todo_path(todo), class: "form-inline" do |form| %>
               <%= hidden_field_tag 'tag', tag %>
