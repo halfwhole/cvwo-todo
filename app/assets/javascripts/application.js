@@ -23,3 +23,7 @@ $(document).on('shown.bs.modal', '.modal', function() {
   var initialVal = input.val();
   input.val('').val(initialVal);
 });
+
+$(document).on('click', '.block', function(e) {
+  e.stopPropagation();
+});

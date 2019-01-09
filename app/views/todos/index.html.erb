@@ -42,42 +42,55 @@
   <br/>
 
   <%# TODOS %>
-  <div class="list-group">
-    <% if !@search_tags.blank? && @filtered_todos.blank? %>
-      No results found.
-    <% end %>
-    <% @filtered_todos.each do |todo| %>
-      <div class="list-group-item to-hover clearfix">
-        <%= button_to complete_todo_path(todo), class: "close", method: :patch, remote: true, form: {class: "pull-left mr-2"} do %>
-          <span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span>
-        <% end %>
-        <%= button_to priority_todo_path(todo), class: "close", method: :patch, remote: true, form: {class: "pull-left mr-2"} do %>
-          <span class="glyphicon <% if todo.priority %>glyphicon-star orange<% else %>glyphicon-star-empty<% end %>"></span>
-        <% end %>
-        <span class="pull-left mt-1 <% if todo.complete %>silver strike<% end %>">
-          <%= todo.content %>
-        </span>
-        <button type="button" class="close ml-2 no-float to-show pull-left" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
-          <small><span class="glyphicon glyphicon-pencil"></span></small>
-        </button>
-        <%= button_to todo_path(todo), class: "close", method: :delete, remote: true, form: {class: "pull-right ml-2"} do %>
-          <span class="glyphicon glyphicon-trash"></span>
-        <% end %>
-        <button type="button" class="close pull-right ml-4" data-toggle="modal" data-target="#tag_modal_<%= todo.id %>">
-          <span class="glyphicon glyphicon-tags"></span>
-        </button>
-        <% todo.tags.sort.reverse.each do |tag| %>
-          <span class="badge badge-info badge-pill mt-1">
-            <%= tag %>
-            <%= form_with model: todo, url: remove_tag_todo_path(todo), class: "form-inline" do |form| %>
-              <%= hidden_field_tag 'tag', tag %>
-              <%= form.submit '&times;'.html_safe, class: "light-cross" %>
-            <% end %>
+  <% if !@search_tags.blank? && @filtered_todos.blank? %>
+    No results found.
+  <% elsif !@filtered_todos.blank? %>
+    <div class="list-group list-group-root well">
+      <% @filtered_todos.each do |todo| %>
+        <a class="list-group-item list-group-item-action to-hover clearfix pointer"
+           data-toggle="collapse" data-target="#todo_collapse_<%= todo.id %>">
+          <%# CHECKBOX %>
+          <%= button_to complete_todo_path(todo), class: "close block", method: :patch, remote: true, form: {class: "pull-left mr-2"} do %>
+            <span class="glyphicon <% if todo.complete %>glyphicon-check<% else %>glyphicon-unchecked<% end %>"></span>
+          <% end %>
+          <%# STAR %>
+          <%= button_to priority_todo_path(todo), class: "close block", method: :patch, remote: true, form: {class: "pull-left mr-2"} do %>
+            <span class="glyphicon <% if todo.priority %>glyphicon-star orange<% else %>glyphicon-star-empty<% end %>"></span>
+          <% end %>
+          <%# CONTENT %>
+          <span class="pull-left block mt-1 <% if todo.complete %>silver strike<% end %>">
+            <%= todo.content %>
           </span>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+          <%# EDIT %>
+          <button type="button" class="close block ml-2 no-float to-show pull-left" data-toggle="modal" data-target="#edit_modal_<%= todo.id %>">
+            <small><span class="glyphicon glyphicon-pencil"></span></small>
+          </button>
+          <%# DELETE %>
+          <%= button_to todo_path(todo), class: "close block", method: :delete, remote: true, form: {class: "pull-right ml-3"} do %>
+            <span class="glyphicon glyphicon-trash"></span>
+          <% end %>
+          <%# TAGS %>
+          <button type="button" class="close block pull-right ml-4" data-toggle="modal" data-target="#tag_modal_<%= todo.id %>">
+            <span class="glyphicon glyphicon-tags"></span>
+          </button>
+          <% todo.tags.sort.reverse.each do |tag| %>
+            <span class="badge badge-info badge-pill block mt-1">
+              <%= tag %>
+              <%= form_with model: todo, url: remove_tag_todo_path(todo), class: "form-inline" do |form| %>
+                <%= hidden_field_tag 'tag', tag %>
+                <%= form.submit '&times;'.html_safe, class: "light-cross" %>
+              <% end %>
+            </span>
+          <% end %>
+        </a>
+        <div class="collapse" id="todo_collapse_<%= todo.id %>">
+          <div class="list-group-item">
+            <p>Hello, world! ID=<%= todo.id %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <%# EDIT MODALS %>
   <% @filtered_todos.each do |todo| %>

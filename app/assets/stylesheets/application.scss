@@ -8,6 +8,10 @@ $spacer: 1rem;
   margin-left: ($spacer * 0.5) !important;
 }
 
+.ml-3 {
+  margin-left: ($spacer * 0.75) !important;
+}
+
 .ml-4 {
   margin-left: ($spacer) !important;
 }
@@ -43,6 +47,10 @@ $spacer: 1rem;
 
 .no-float {
   float: none;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 /* COLORS */
@@ -85,4 +93,36 @@ $spacer: 1rem;
 
 .to-hover:hover .to-show {
   visibility: visible;
+}
+
+.block {
+  cursor: auto;
+}
+
+/* NESTED LIST-GROUPS: Credits go to Marcos of Stack Overflow.
+Link at https://stackoverflow.com/questions/29063244/consistent-styling-for-nested-lists-with-bootstrap */
+.list-group.list-group-root {
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+  margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+  border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+  padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+  padding-left: 45px;
 }
