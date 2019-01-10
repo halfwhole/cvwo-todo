@@ -85,7 +85,11 @@
         </a>
         <div class="collapse" id="todo_collapse_<%= todo.id %>">
           <div class="list-group-item">
-            <p>Hello, world! ID=<%= todo.id %></p>
+            <% if todo.description.blank? %>
+              <i class="silver">No description added</i>
+            <% else %>
+              <%= simple_format(todo.description) %>
+            <% end%>
           </div>
         </div>
       <% end %>
@@ -99,14 +103,23 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Edit Content</h4>
+            <h4 class="modal-title">Edit Todo</h4>
           </div>
           <div class="modal-body">
-            <%= form_with model: todo do |form| %>
-              <div class="input-group">
-                <%= form.text_field :content, class: "form-control autofocus", placeholder: "Content" %>
-                <span class="input-group-btn"><%= form.submit :Edit, class: "btn btn-primary" %></span>
+            <%= form_with model: todo, class: "form-horizontal" do |form| %>
+              <div class="form-group">
+                <%= form.label :content, class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <%= form.text_field :content, class: "form-control autofocus", placeholder: "Content" %>
+                </div>
               </div>
+              <div class="form-group">
+                <%= form.label :description, class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <%= form.text_area :description, rows: 8, class: "form-control no-resize", placeholder: "Description" %>
+                </div>
+              </div>
+              <%= form.submit :Edit, class: "btn btn-block btn-primary" %>
             <% end %>
           </div>
         </div>

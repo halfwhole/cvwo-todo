@@ -53,6 +53,10 @@ $spacer: 1rem;
   cursor: pointer;
 }
 
+.no-resize {
+  resize: none;
+}
+
 /* COLORS */
 .orange {
   color: #E65100;
