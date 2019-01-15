@@ -4,10 +4,12 @@ one:
   complete: false
   priority: false
   content: MyString
-  tags: MyString
+  tags: []
+  description: MyString
 
 two:
   complete: false
   priority: false
   content: MyString
-  tags: MyString
+  tags: []
+  description: MyString
