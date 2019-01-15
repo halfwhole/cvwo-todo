@@ -17,6 +17,7 @@
 //= require jquery3
 //= require bootstrap-sprockets
 
+// Shift cursor to the end when modal is opened
 $(document).on('shown.bs.modal', '.modal', function() {
   var input = $(this).find('.autofocus');
   input.focus();
@@ -24,6 +25,7 @@ $(document).on('shown.bs.modal', '.modal', function() {
   input.val('').val(initialVal);
 });
 
+// Prevent clicking on multiple elements at once
 $(document).on('click', '.block', function(e) {
   e.stopPropagation();
 });

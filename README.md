@@ -1,3 +1,9 @@
-# CVWO mid-assignment submission
+# CVWO final submission
 
-The screenshot of Rails is available at [rails.jpg](./rails.jpg), and the write-up is available at [writeup.pdf](./writeup.pdf).
+The write-up and user manual is available at [writeup.pdf](./writeup.pdf).
+
+A working copy of the app on Heroku can be accessed [here](http://droptwo.herokuapp.com).
+
+The mid-submission files can be found [here](./mid-submission-files).
+
+![app demonstration](./demo.gif)

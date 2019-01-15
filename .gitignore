@@ -7,7 +7,11 @@
 *.un
 *.un~
 *.odt
+*.odp
+todos.png
+todos-marked.png
 TODO.txt
+cvwo_assignment.pdf
 
 # Ignore bundler config.
 /.bundle

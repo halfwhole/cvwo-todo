@@ -29,6 +29,7 @@ class TodosController < ApplicationController
     redirect_to todos_path
   end
 
+  ## Actions
   def complete
     @todo = Todo.find(params[:id])
     @todo.update({ complete: !@todo.complete, priority: false })
@@ -41,6 +42,7 @@ class TodosController < ApplicationController
     redirect_to todos_path
   end
 
+  ## Tags
   def add_tag
     @todo = Todo.find(params[:id])
     if !params[:tag].blank? and !(@todo.tags.include? params[:tag])
@@ -59,6 +61,7 @@ class TodosController < ApplicationController
     redirect_to todos_path
   end
 
+  ## Search tags
   def add_search_tag
     session[:search_tags] ||= []
     if !params[:search_tag].blank? and !(session[:search_tags].include? params[:search_tag])
