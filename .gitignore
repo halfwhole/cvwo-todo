@@ -6,6 +6,7 @@
 
 *.un
 *.un~
+*.odt
 TODO.txt
 
 # Ignore bundler config.
